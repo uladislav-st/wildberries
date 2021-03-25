@@ -35,9 +35,9 @@ modalCart.addEventListener('click', (event) => {
 	const scrollLinks = document.querySelectorAll('a.scroll-link');
 
 	for (const scrollLink of scrollLinks) {
-		scrollLinks.addEventListener('click', (event) => {
+		scrollLink.addEventListener('click', event => {
 			event.preventDefault();
-			const id = scrollLink[i].getAttribute('href');
+			const id = scrollLink.getAttribute('href');
 			document.querySelector(id).scrollIntoView({
 				behavior: 'smooth',
 				block: 'start',
@@ -48,9 +48,11 @@ modalCart.addEventListener('click', (event) => {
 
 // goods
 
-const more = document.querySelector('.more');
-const navItem = document.querySelectorAll('.navigation-item');
+const viewAll = document.querySelectorAll('.view-all');
+const navLink = document.querySelectorAll('.navigation-link:not(.view-all)');
 const longGoodsList = document.querySelector('.long-goods-list');
+const showClothing = document.querySelectorAll('.show-clothing');
+const showAccessories = document.querySelectorAll('.show-accessories');
 
 const getGoods = async () => {
 	const result = await fetch('db/db.json');
@@ -59,22 +61,26 @@ const getGoods = async () => {
 	} else return await result.json();
 };
 
-const createCard = (objCard) => {
+const createCard = ({
+	label,
+	name,
+	img,
+	description,
+	id,
+	price
+}) => {
 	const card = document.createElement('div');
 	card.className = 'col-lg-3 col-sm-6'
-
-	console.log(objCard);
-
 	card.innerHTML = `
 	<div class="goods-card">
 
-		${objCard.label ? `<span class="label">${objCard.label}</span>` : ''}
+		${label ? `<span class="label">${label}</span>` : ''}
 
-		<img src="db/${objCard.img}" alt="${objCard.name}" class="goods-image">
-		<h3 class="goods-title">${objCard.name}</h3>
-		<p class="goods-description">${objCard.description}</p>
-		<button class="button goods-card-btn add-to-cart" data-id="${objCard.id}">
-			<span class="button-price">$${objCard.price}</span>
+		<img src="db/${img}" alt="${name}" class="goods-image">
+		<h3 class="goods-title">${name}</h3>
+		<p class="goods-description">${description}</p>
+		<button class="button goods-card-btn add-to-cart" data-id="${id}">
+			<span class="button-price">$${price}</span>
 		</button>
 	</div>
 	`;
@@ -87,12 +93,14 @@ const renderCards = (data) => {
 	longGoodsList.append(...cards);
 	document.body.classList.add('show-goods');
 };
-
-more.addEventListener('click', (event) => {
+const showAll = (event) => {
 	event.preventDefault();
 	getGoods().then(renderCards);
-});
+};
 
+viewAll.forEach((elem) => {
+	elem.addEventListener('click', showAll);
+});
 
 const filterCards = (field, value) => {
 	getGoods()
@@ -105,6 +113,24 @@ const filterCards = (field, value) => {
 		.then(renderCards);
 };
 
-navItem.forEach( (link) => {
+navLink.forEach((link) => {
+	link.addEventListener('click', (event) => {
+		event.preventDefault();
+		const field = link.dataset.field;
+		const value = link.textContent;
+		filterCards(field, value);
+	})
+});
 
+showAccessories.forEach(item => {
+	item.addEventListener('click', event => {
+		event.preventDefault();
+		filterCards('category', 'Accessories');
+	});
+});
+showClothing.forEach(item => {
+	item.addEventListener('click', event => {
+		event.preventDefault();
+		filterCards('category', 'Clothing');
+	});
 });

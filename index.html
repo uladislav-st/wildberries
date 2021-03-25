@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +15,11 @@
 	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
-	<link rel="stylesheet" href="css/swiper-bundle.min.css"/>
+	<link rel="stylesheet" href="css/swiper-bundle.min.css" />
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <!-- class="show-goods" -->
+
 <body id="body">
 	<header class="container header px-4 px-md-0">
 		<div class="row justify-content-between align-items-center">
@@ -45,7 +47,7 @@
 							<a href="#" class="navigation-link" data-field="category">Shoes</a>
 						</li>
 						<li class="navigation-item">
-							<a href="#" class="navigation-link" >All</a>
+							<a href="#" class="navigation-link view-all">All</a>
 						</li>
 
 					</ul>
@@ -87,7 +89,8 @@
 						<div class="col-lg-4 col-10 offset-lg-1">
 							<span class="label">New</span>
 							<h2 class="slide-title">Text T-Shirt</h2>
-							<p class="slide-description">Women’s pearl basic knit sweater with a round neck. Available in several colours. Free shipping to stores.</p>
+							<p class="slide-description">Women’s pearl basic knit sweater with a round neck. Available in several
+								colours. Free shipping to stores.</p>
 							<button class="button add-to-cart" data-id="004">
 								<span class="button-price">$119</span>
 								<span class="button-text">Shop now</span>
@@ -105,7 +108,8 @@
 						<div class="col-lg-4 col-10 offset-lg-1">
 							<span class="label">Bestseller</span>
 							<h2 class="slide-title">Sweater Choker Neck</h2>
-							<p class="slide-description">Women’s pearl basic knit sweater with a round neck. Available in several colours. Free shipping to stores.</p>
+							<p class="slide-description">Women’s pearl basic knit sweater with a round neck. Available in several
+								colours. Free shipping to stores.</p>
 							<button class="button add-to-cart" data-id="005">
 								<span class="button-price">$319</span>
 								<span class="button-text">Shop now</span>
@@ -148,10 +152,12 @@
 				<div class="card card-1 mb-4">
 					<h3 class="card-title">Fashion Month Ready in Capital Shop</h3>
 					<p class="card-text">Bags & Acsessories & Lingerie & Sportswear & Beauty & Swimwear</p>
-					<button class="button">
-						<span class="button-text">View all</span>
-						<img src="img/arrow.svg" alt="icon: arrow" class="button-icon">
-					</button>
+					<a href="#body" class="scroll-link">
+						<button class="button show-accessories">
+							<span class="button-text">View all</span>
+							<img src="img/arrow.svg" alt="icon: arrow" class="button-icon">
+						</button>
+					</a>
 				</div>
 				<!-- /.card -->
 			</div>
@@ -160,10 +166,12 @@
 				<div class="card card-2 mb-4">
 					<h3 class="card-title text-light">Catch the Sun: Spring Break Styles From $5.99</h3>
 					<p class="card-text text-light">Sweaters & Hoodies & Puffer Jackets & Coats and Jackets & Knit</p>
-					<button class="button">
-						<span class="button-text">View all</span>
-						<img src="img/arrow.svg" alt="icon: arrow" class="button-icon">
-					</button>
+					<a href="#body" class="scroll-link">
+						<button class="button show-clothing">
+							<span class="button-text">View all</span>
+							<img src="img/arrow.svg" alt="icon: arrow" class="button-icon">
+						</button>
+					</a>
 				</div>
 				<!-- /.card -->
 			</div>
@@ -201,7 +209,7 @@
 			</div>
 			<!-- /.col-9 -->
 			<div class="col-3 d-flex justify-content-end">
-				<a href="#" class="more">View All</a>
+				<a href="#body" class="more scroll-link view-all">View All</a>
 			</div>
 			<!-- /.col-3 -->
 		</div>
@@ -499,16 +507,16 @@
 				<div class="col-lg-3 d-flex align-items-center">
 					<span class="footer-text">Follow Us</span>
 					<span class="footer-social d-inline-flex align-items-center">
-            <a href="#" class="social-link">
-              <img src="img/Facebook.svg" alt="Facebook">
-            </a>
-            <a href="#" class="social-link">
-              <img src="img/Twitter.svg" alt="Twitter">
-            </a>
-            <a href="#" class="social-link">
-              <img src="img/Instagram.svg" alt="Instagram">
-            </a>
-          </span>
+						<a href="#" class="social-link">
+							<img src="img/Facebook.svg" alt="Facebook">
+						</a>
+						<a href="#" class="social-link">
+							<img src="img/Twitter.svg" alt="Twitter">
+						</a>
+						<a href="#" class="social-link">
+							<img src="img/Instagram.svg" alt="Instagram">
+						</a>
+					</span>
 				</div>
 				<!-- /.col-3 -->
 				<div class="col-xl-2 col-lg-3 d-flex justify-content-lg-end mt-4 mt-lg-0">
@@ -555,50 +563,50 @@
 					<col class="col-delete">
 				</colgroup>
 				<thead>
-				<tr>
-					<th>Good(s)</th>
-					<th>Price</th>
-					<th colspan="3">Qty.</th>
-					<th colspan="2">Total</th>
-				</tr>
+					<tr>
+						<th>Good(s)</th>
+						<th>Price</th>
+						<th colspan="3">Qty.</th>
+						<th colspan="2">Total</th>
+					</tr>
 				</thead>
 				<tbody class="cart-table__goods">
-				<tr class="cart-item" data-id="003">
-					<td>Sweater</td>
-					<td>250$</td>
-					<td><button class="cart-btn-minus">-</button></td>
-					<td>2</td>
-					<td><button class="cart-btn-plus">+</button></td>
-					<td>500$</td>
-					<td><button class="cart-btn-delete">x</button></td>
-				</tr>
-				<tr class="cart-item" data-id="003">
-					<td>Sweater</td>
-					<td>250$</td>
-					<td><button class="cart-btn-minus">-</button></td>
-					<td>2</td>
-					<td><button class="cart-btn-plus">+</button></td>
-					<td>500$</td>
-					<td><button class="cart-btn-delete">x</button></td>
-				</tr>
-				<tr class="cart-item" data-id="003">
-					<td>Sweater</td>
-					<td>250$</td>
-					<td><button class="cart-btn-minus">-</button></td>
-					<td>2</td>
-					<td><button class="cart-btn-plus">+</button></td>
-					<td>500$</td>
-					<td><button class="cart-btn-delete">x</button></td>
-				</tr>
+					<tr class="cart-item" data-id="003">
+						<td>Sweater</td>
+						<td>250$</td>
+						<td><button class="cart-btn-minus">-</button></td>
+						<td>2</td>
+						<td><button class="cart-btn-plus">+</button></td>
+						<td>500$</td>
+						<td><button class="cart-btn-delete">x</button></td>
+					</tr>
+					<tr class="cart-item" data-id="003">
+						<td>Sweater</td>
+						<td>250$</td>
+						<td><button class="cart-btn-minus">-</button></td>
+						<td>2</td>
+						<td><button class="cart-btn-plus">+</button></td>
+						<td>500$</td>
+						<td><button class="cart-btn-delete">x</button></td>
+					</tr>
+					<tr class="cart-item" data-id="003">
+						<td>Sweater</td>
+						<td>250$</td>
+						<td><button class="cart-btn-minus">-</button></td>
+						<td>2</td>
+						<td><button class="cart-btn-plus">+</button></td>
+						<td>500$</td>
+						<td><button class="cart-btn-delete">x</button></td>
+					</tr>
 
 
 
 				</tbody>
 				<tfoot>
-				<tr>
-					<th colspan="5">Total:</th>
-					<th class="card-table__total" colspan="2">1500$</th>
-				</tr>
+					<tr>
+						<th colspan="5">Total:</th>
+						<th class="card-table__total" colspan="2">1500$</th>
+					</tr>
 
 				</tfoot>
 			</table>
@@ -614,4 +622,5 @@
 	<script src="js/swiper-bundle.min.js"></script>
 	<script src="js/main.js"></script>
 </body>
+
 </html>
