@@ -1,19 +1,165 @@
 const mySwiper = new Swiper('.swiper-container', {
 	loop: true,
 
-	// Navigation arrows
+	// ================================Navigation arrows================================
 	navigation: {
 		nextEl: '.slider-button-next',
 		prevEl: '.slider-button-prev',
 	},
 });
 
-// cart
+// ================================cart================================
 
 const btnCart = document.querySelector('.button-cart');
 const modalCart = document.querySelector('#modal-cart');
+const viewAll = document.querySelectorAll('.view-all');
+const navLink = document.querySelectorAll('.navigation-link:not(.view-all)');
+const longGoodsList = document.querySelector('.long-goods-list');
+const showClothing = document.querySelectorAll('.show-clothing');
+const showAccessories = document.querySelectorAll('.show-accessories');
+const cartTableGoods = document.querySelector('.cart-table__goods');
+const cardTableTotal = document.querySelector('.card-table__total');
+const cartCount = document.querySelector('.cart-count');
+const buttonClear = document.querySelector('.button-clear');
+
+const checkGoods = () => {
+	const data = [];
+	return async () => {
+		if (data.length) return data;
+		const result = await fetch('db/db.json');
+		if (!result.ok) {
+			throw 'Error' + result.status
+		}
+		data.push(...(await result.json().then()));
+		return data
+	};
+}
+
+const getGoods = checkGoods();
+
+
+const cart = {
+	cartGoods: [],
+	countQuantity() {
+		cartCount.textContent = this.cartGoods.reduce((sum, item) => {
+			return sum + item.count
+		}, 0)
+	},
+	clearCart() {
+		this.cartGoods.length = 0;
+		this.countQuantity();
+		this.renderCart();
+	},
+	renderCart() {
+		cartTableGoods.textContent = '';
+		this.cartGoods.forEach(({
+			id,
+			name,
+			price,
+			count
+		}) => {
+			const trGood = document.createElement('tr');
+			trGood.className = 'cart-item';
+			trGood.dataset.id = id;
+			trGood.innerHTML = `
+						<td>${name}</td>
+						<td>${price}$</td>
+						<td><button class="cart-btn-minus">-</button></td>
+						<td>${count}</td>
+						<td><button class="cart-btn-plus">+</button></td>
+						<td>${price * count}$</td>
+						<td><button class="cart-btn-delete">x</button></td>
+			`;
+			cartTableGoods.append(trGood);
+		});
+
+		const totalPrice = this.cartGoods.reduce((sum, item) => {
+			return sum + item.price * item.count;
+		}, 0);
+		cardTableTotal.textContent = totalPrice + '$';
+	},
+	deleteGood(id) {
+		this.cartGoods = this.cartGoods.filter(item => id !== item.id)
+		this.renderCart();
+		this.countQuantity();
+	},
+	minusGood(id) {
+		for (const item of this.cartGoods) {
+			if (item.id === id) {
+				if (item.count <= 1) {
+					this.deleteGood(id)
+				} else {
+					item.count--;
+				}
+				break;
+			};
+		};
+		this.renderCart();
+		this.countQuantity();
+	},
+	plusGood(id) {
+		for (const item of this.cartGoods) {
+			if (item.id === id) {
+				item.count++;
+				break;
+			};
+		};
+		this.renderCart();
+		this.countQuantity();
+	},
+	addCardGoods(id) {
+		const goodItem = this.cartGoods.find(item => item.id === id);
+		if (goodItem) {
+			this.plusGood(id);
+		} else {
+			getGoods()
+				.then(data => data.find(item => item.id === id))
+				.then(({
+					id,
+					name,
+					price
+				}) => {
+					this.cartGoods.push({
+						id,
+						name,
+						price,
+						count: 1
+					});
+					this.countQuantity();
+				});
+		}
+	},
+};
+
+buttonClear.addEventListener('click', cart.clearCart.bind(cart));
+
+document.body.addEventListener('click', event => {
+	const addToCart = event.target.closest('.add-to-cart');
+	if (addToCart) {
+		cart.addCardGoods(addToCart.dataset.id)
+	}
+});
+
+cartTableGoods.addEventListener('click', event => {
+	const target = event.target;
+
+	if (target.tagName === "BUTTON") {
+		const id = target.closest('.cart-item').dataset.id;
+
+		if (target.classList.contains('cart-btn-delete')) {
+			cart.deleteGood(id);
+		}
+		if (target.classList.contains('cart-btn-minus')) {
+			cart.minusGood(id);
+		}
+		if (target.classList.contains('cart-btn-plus')) {
+			cart.plusGood(id);
+		}
+	};
+});
 
 const openModal = () => {
+	cart.renderCart();
 	modalCart.classList.add('show')
 };
 const closeModal = () => {
@@ -29,37 +175,7 @@ modalCart.addEventListener('click', (event) => {
 	}
 });
 
-// scroll smooth
-
-{
-	const scrollLinks = document.querySelectorAll('a.scroll-link');
-
-	for (const scrollLink of scrollLinks) {
-		scrollLink.addEventListener('click', event => {
-			event.preventDefault();
-			const id = scrollLink.getAttribute('href');
-			document.querySelector(id).scrollIntoView({
-				behavior: 'smooth',
-				block: 'start',
-			})
-		});
-	};
-}
-
-// goods
-
-const viewAll = document.querySelectorAll('.view-all');
-const navLink = document.querySelectorAll('.navigation-link:not(.view-all)');
-const longGoodsList = document.querySelector('.long-goods-list');
-const showClothing = document.querySelectorAll('.show-clothing');
-const showAccessories = document.querySelectorAll('.show-accessories');
-
-const getGoods = async () => {
-	const result = await fetch('db/db.json');
-	if (!result.ok) {
-		throw 'Error' + result.status
-	} else return await result.json();
-};
+// ================================goods================================
 
 const createCard = ({
 	label,
@@ -104,12 +220,7 @@ viewAll.forEach((elem) => {
 
 const filterCards = (field, value) => {
 	getGoods()
-		.then((data) => {
-			const filtereGoods = data.filter((good) => {
-				return good[field] === value
-			});
-			return filtereGoods;
-		})
+		.then(data => data.filter(good => good[field] === value))
 		.then(renderCards);
 };
 
@@ -134,3 +245,21 @@ showClothing.forEach(item => {
 		filterCards('category', 'Clothing');
 	});
 });
+
+
+//==================================scroll smooth================================
+
+{
+	const scrollLinks = document.querySelectorAll('a.scroll-link');
+
+	for (const scrollLink of scrollLinks) {
+		scrollLink.addEventListener('click', event => {
+			event.preventDefault();
+			const id = scrollLink.getAttribute('href');
+			document.querySelector(id).scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			})
+		});
+	};
+}
