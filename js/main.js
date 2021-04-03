@@ -55,20 +55,22 @@ const cart = {
 		this.cartGoods.forEach(({
 			id,
 			name,
+			img,
 			price,
 			count
 		}) => {
-			const trGood = document.createElement('tr');
+			const trGood = document.createElement('div');
 			trGood.className = 'cart-item';
 			trGood.dataset.id = id;
 			trGood.innerHTML = `
-						<td>${name}</td>
-						<td>${price}$</td>
-						<td><button class="cart-btn-minus">-</button></td>
-						<td>${count}</td>
-						<td><button class="cart-btn-plus">+</button></td>
-						<td>${price * count}$</td>
-						<td><button class="cart-btn-delete">x</button></td>
+						<img src="db/${img}" alt="${name}" class="cart-img">
+						<span>${name}</span>
+						<span>${price}$</span>
+						<span><button class="cart-btn-minus">-</button></span>
+						<span>${count}</span>
+						<span><button class="cart-btn-plus">+</button></span>
+						<span>${price * count}$</span>
+						<span><button class="cart-btn-delete">x</button></span>
 			`;
 			cartTableGoods.append(trGood);
 		});
@@ -117,11 +119,13 @@ const cart = {
 				.then(({
 					id,
 					name,
+					img,
 					price
 				}) => {
 					this.cartGoods.push({
 						id,
 						name,
+						img,
 						price,
 						count: 1
 					});

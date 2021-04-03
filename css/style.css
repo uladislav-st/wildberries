@@ -424,14 +424,8 @@ button {
 }
 
 .cart-table {
-    border-collapse: collapse;
     min-width: 100%;
     margin-bottom: 15px;
-}
-
-.cart-table th,
-.cart-table td {
-    text-align: center;
 }
 
 .cart-buy {
@@ -454,6 +448,10 @@ button {
     border:none;
 }
 
+.cart-img{
+    width: 70px;
+    height: 70px;
+}
 
 .mw-160 {
     max-width: 160px;
