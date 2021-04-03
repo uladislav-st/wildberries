@@ -39,11 +39,8 @@ img {
     letter-spacing: 0.5px;
 }
 
-button {
-    cursor: pointer;
-}
-
 .button {
+    cursor: pointer;
     padding: 10px 20px;
     background: #4592FF;
     border-radius: 20px;
@@ -57,6 +54,24 @@ button {
     line-height: 20px;
     display: flex;
     align-items: center;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    60%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+}
+
+.button:active {
+    animation: bounce 1s;
 }
 
 .button-icon,
@@ -268,6 +283,9 @@ button {
     text-align: center;
     padding: 30px 35px 35px;
     min-height: 440px;
+    box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 20px 0;
 }
 
 .goods-card .label {
@@ -419,13 +437,12 @@ button {
     height: 40px;
     padding: 10px;
     border-radius: 20px;
-    border:1px solid #000;
-    margin-bottom: 30px;
+    border: 1px solid #000;
 }
 
 .cart-table {
     min-width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .cart-buy {
@@ -443,14 +460,55 @@ button {
     height: 40px;
 }
 
-.cart-btn-minus, .cart-btn-plus{
-    border-radius:50%;
-    border:none;
+.cart-btn-minus,
+.cart-btn-plus,
+.cart-btn-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #9a9a9a;
+    color: #9a9a9a;
+    background: none;
 }
 
-.cart-img{
-    width: 70px;
+.cart-btn-minus:hover,
+.cart-btn-plus:hover,
+.cart-btn-delete:hover {
+    border: 1px solid #000000;
+    color: #000000;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-img {
+    width: auto;
     height: 70px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.cart-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.cart-score {
+    display: flex;
+}
+
+.cart-score__quantity {
+    margin: 0 10px;
+}
+
+.card-table__total {
+    font-weight: bold;
 }
 
 .mw-160 {
@@ -481,7 +539,6 @@ button {
 .col-delete {
     width: 5px;
 }
-
 
 @media (max-width: 1200px) {
     .slide-1 {

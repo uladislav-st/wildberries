@@ -20,7 +20,6 @@ const showAccessories = document.querySelectorAll('.show-accessories');
 const cartTableGoods = document.querySelector('.cart-table__goods');
 const cardTableTotal = document.querySelector('.card-table__total');
 const cartCount = document.querySelector('.cart-count');
-const buttonClear = document.querySelector('.button-clear');
 
 const checkGoods = () => {
 	const data = [];
@@ -64,13 +63,14 @@ const cart = {
 			trGood.dataset.id = id;
 			trGood.innerHTML = `
 						<img src="db/${img}" alt="${name}" class="cart-img">
-						<span>${name}</span>
-						<span>${price}$</span>
-						<span><button class="cart-btn-minus">-</button></span>
-						<span>${count}</span>
-						<span><button class="cart-btn-plus">+</button></span>
+						<span class="cart-name">${name}</span>
+						<div class="cart-score">
+							<span><button class="cart-btn-minus">-</button></span>
+							<span class="cart-score__quantity">${count}</span>
+							<span><button class="cart-btn-plus">+</button></span>
+						</div>
 						<span>${price * count}$</span>
-						<span><button class="cart-btn-delete">x</button></span>
+						<button class="cart-btn-delete">x</button>
 			`;
 			cartTableGoods.append(trGood);
 		});
@@ -134,8 +134,6 @@ const cart = {
 		}
 	},
 };
-
-buttonClear.addEventListener('click', cart.clearCart.bind(cart));
 
 document.body.addEventListener('click', event => {
 	const addToCart = event.target.closest('.add-to-cart');
